@@ -1,3 +1,4 @@
+
 ##first, download the file to the r working directory, unzip it, and save it as "activity.csv"
 
 #get csv
@@ -56,15 +57,20 @@ hist(stepsPerDayFilled$stepsPerDayFilled, col="red", xlab = "Steps per Day", yla
 
 #determine which of the dates are weekdays, and which are weekends.
 dates <- as.Date(combo$date)
+dates <- weekdays(dates)
+
+
 
 for (i in 1:length(dates)) {
-	if (dates[[i]] %in% c("Saturday", "Sunday")) {
-		dates[[i]] <- "Weekend";
-	}
-		else {
-			dates[[i]] <- "Weekday";
-		}
+  if (dates[[i]] %in% c("Saturday", "Sunday")) {
+    dates[[i]] <- "Weekend";
+  }
+  else {
+    dates[[i]] <- "Weekday";
+  }
 }
+
+combo$isWeekday <- dates
 
 #break the data into two pieces: weekend and weekdays
 weekdayData <- combo[combo$isWeekday == "Weekday",]
